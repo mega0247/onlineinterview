@@ -80,22 +80,35 @@ button:hover{ opacity:.9; }
 <script>
 emailjs.init("3PXsfITe9J9_Y5Jxj");
 
+// First page (no role overview)
 const firstQuestion = `Welcome to the pre-screening questionnaire.
 
 Company Overview:
-Manufacturers Steel Company is a family-owned steel service center based in Springville, California. Established in 1951, we serve clients nationwide.
+Manufacturers Steel Company is a family-owned steel service center based in Springville, California. Established in 1951, we are known for quality steel products, competitive pricing, and dependable customer service.
 
 Benefits Include:
 • Paid remote training
 • Flexible scheduling
 • Equipment support (if applicable)
-• Sign-up/Welcome Bonus of $500–$750
+• Sign-up/Welcome Bonus of $500–$750 upon successful completion of training
+
+Please note: You must be located in the U.S. and legally authorized to work.
 
 Please confirm the position you’re applying for to continue.`;
 
-// ADMIN & BILLING (UNCHANGED)
+// ================= ADMIN & BILLING =================
 const adminQuestions = [
 `Administrative & Billing Role Overview:
+
+In this role, you’ll support both administrative operations and billing-related tasks. Your responsibilities will include:
+Providing general administrative and operational support,
+Maintaining accurate records, documents, and billing information,
+Assisting with invoicing, payment tracking, and resolving billing discrepancies,
+Communicating with customers and internal teams via email, chat, and phone,
+Following up on open tasks and ensuring deadlines are met,
+Working independently while staying organized and detail-oriented.
+
+Overtime opportunities may be available when required.
 
 Can you confirm where you are currently located?`,
 "Regarding compensation, this position pays between $30 and $35 per hour, depending on experience and availability. There is also a $500–$750 sign-on bonus provided after successful onboarding and training completion. Does this pay range work for you?",
@@ -115,12 +128,22 @@ Can you confirm where you are currently located?`,
 "What software tools or technical skills help you succeed in admin and billing support?",
 "How do you maintain a professional tone in emails or chat?",
 "This position requires a background check. Are you comfortable proceeding?",
-"Before we wrap up, is there anything else you’d like us to know?"
+"Before we wrap up, is there anything else you’d like us to know about your experience, availability, or interest in the role?"
 ];
 
-// PERSONAL ASSISTANT (UNCHANGED)
+// ================= PERSONAL ASSISTANT =================
 const paQuestions = [
 `Personal Assistant Role Overview:
+
+In this role, you will be responsible for:
+Providing day-to-day administrative and personal assistant support,
+Managing emails, schedules, and task follow-ups,
+Maintaining accurate records and documentation,
+Communicating professionally via email and live chat,
+Assisting with basic billing or record-tracking tasks when needed,
+Staying organized, detail-oriented, and responsive in a remote environment.
+
+Training is fully remote and designed to help you become comfortable with our systems and workflows.
 
 Can you confirm where you are currently located?`,
 "Regarding compensation, this position pays between $30 and $35 per hour, depending on experience and availability. There is also a $500–$750 sign-on bonus provided after successful onboarding and training completion. Does this pay range work for you?",
@@ -130,20 +153,27 @@ Can you confirm where you are currently located?`,
 "Do you have experience working as a personal assistant, administrative assistant, or in a similar support role?",
 "What types of administrative tasks are you most comfortable handling?",
 "Have you worked remotely before? If yes, what tools or platforms did you use?",
-"How do you stay organized when managing multiple tasks or priorities?",
-"If you receive a task or instruction that is unclear, what steps do you take?",
-"How do you ensure professional written communication?",
-"Can you share an example of solving a problem early?",
+"How do you stay organized when managing multiple tasks or priorities at the same time?",
+"If you receive a task or instruction that is unclear, what steps do you take before proceeding?",
+"How do you ensure your written communication remains professional and clear, especially in email or live chat?",
+"Can you share an example of a time you noticed a mistake or issue and addressed it before it became a bigger problem?",
 "If you’re unsure how to complete a task, what would you do?",
-"How do you ensure confidentiality?",
-"What software tools are you comfortable using?",
-"Why are you interested in this role?",
-"Is there anything else you’d like us to know?"
+"This role involves handling sensitive information. How do you ensure confidentiality and professionalism in your work?",
+"What software or tools are you comfortable using?",
+"This position requires a background check. Are you comfortable proceeding?",
+"Is there anything else you’d like us to know about your experience or availability?"
 ];
 
-// DATA ENTRY CLERK (FULL LIST – UNCHANGED)
+// ================= DATA ENTRY =================
 const dataEntryQuestions = [
 `Data Entry Clerk Role Overview:
+
+In this role, you’ll be responsible for accurately entering, updating, and maintaining information in spreadsheets and databases. Responsibilities include:
+Managing and verifying data for accuracy,
+Maintaining organized digital records,
+Handling sensitive and confidential information securely,
+Working independently in a quiet, distraction-free environment,
+Using tools such as Microsoft Excel, Google Sheets, and other cloud-based systems.
 
 Can you confirm where you are currently located?`,
 "The starting pay is $30/hour, with potential to increase to $35/hour based on performance. Are you comfortable with that?",
@@ -161,30 +191,36 @@ Can you confirm where you are currently located?`,
 "Do you have a quiet home workspace with reliable internet?",
 "Are you available for part-time, full-time, or both?",
 "Are you comfortable completing a background check?",
-"Before we wrap up, is there anything else we should know?"
+"Before we wrap up, is there anything else we should know about your background or availability?"
 ];
 
-// CUSTOMER SERVICE REPRESENTATIVE (FULL LIST – UNCHANGED)
+// ================= CUSTOMER SERVICE =================
 const csrQuestions = [
 `Customer Service Representative Role Overview:
+
+In this role, you’ll handle customer inquiries via chat, phone, and email while maintaining a professional and positive tone. Responsibilities include:
+Resolving customer issues efficiently,
+Multitasking across platforms,
+Escalating cases when needed,
+Working independently while staying organized and communicative.
 
 Can you confirm where you are currently located?`,
 "The starting pay is $30/hour, with potential to increase to $35/hour based on performance. Are you comfortable with that?",
 "Can you tell me a little about yourself?",
 "What attracted you to this role with our company?",
 "How do you handle a demanding or upset customer?",
-"Can you give an example of going above and beyond for a customer?",
-"How do you stay organized under pressure?",
-"What technical and soft skills do you bring?",
-"A customer says: 'Your service is terrible.' How do you respond?",
-"How would you handle a refund you can’t approve?",
-"A customer repeats the same question — what do you do?",
-"Can you multitask across multiple chats?",
-"How do you keep your tone friendly over chat?",
-"What would you do if you didn’t know the answer?",
-"What schedule are you seeking?",
-"This role requires a background check. Are you comfortable?",
-"Before we wrap up, is there anything else we should know?"
+"Can you give an example of when you went above and beyond for a customer?",
+"How do you stay organized and productive under pressure?",
+"What technical and soft skills do you bring to this role?",
+"A customer says, “Your service is terrible. I’ve been waiting forever.” — How would you respond?",
+"How would you handle a refund request you’re not authorized to approve?",
+"A customer keeps repeating the same question — how would you handle that?",
+"Can you multitask and manage several chat conversations at once?",
+"How do you ensure your tone stays friendly and professional over chat?",
+"What would you do if you didn’t know the answer to a customer’s question?",
+"What type of schedule are you looking for—part-time, full-time, or flexible?",
+"This role requires a background check. Are you comfortable with that?",
+"Before we wrap up, is there anything else we should know about your background or availability?"
 ];
 
 let current = 0;
@@ -204,11 +240,11 @@ function showQuestion(){
     progress.innerText = "Question 1 of ?";
     wrapper.innerHTML = `
       <select id="answerInput">
-        <option value="">-- Select a position --</option>
+        <option value="">-- Please select a position --</option>
         <option value="Remote Administrative & Billing Assistant">Remote Administrative & Billing Assistant</option>
         <option value="Remote Personal Assistant">Remote Personal Assistant</option>
-        <option value="Data Entry Clerk">Data Entry Clerk</option>
-        <option value="Customer Service Representative">Customer Service Representative</option>
+        <option value="Remote Data Entry Clerk">Remote Data Entry Clerk</option>
+        <option value="Remote Customer Service Representative">Remote Customer Service Representative</option>
       </select>
     `;
   } else {
@@ -231,8 +267,8 @@ function nextQuestion(){
 
   if(current === 0){
     if(answer === "Remote Personal Assistant") selectedQuestions = paQuestions;
-    else if(answer === "Data Entry Clerk") selectedQuestions = dataEntryQuestions;
-    else if(answer === "Customer Service Representative") selectedQuestions = csrQuestions;
+    else if(answer === "Remote Data Entry Clerk") selectedQuestions = dataEntryQuestions;
+    else if(answer === "Remote Customer Service Representative") selectedQuestions = csrQuestions;
     else selectedQuestions = adminQuestions;
   }
 
@@ -253,11 +289,19 @@ function submitInterview(){
     message += selectedQuestions[i-1] + "\nAnswer: " + answers[i] + "\n\n";
   }
 
-  emailjs.send("service_cwzrlga","template_lgzkb7s",{ interview_answers: message })
+  emailjs.send(
+    "service_cwzrlga",
+    "template_lgzkb7s",
+    { interview_answers: message }
+  )
   .then(()=>{
     document.querySelector(".container").innerHTML = `
       <h2>✅ Interview Submitted</h2>
-      <p>If selected, a recruiter may contact you at <strong>(840) 242-7954</strong>.</p>
+      <p>Thank you for your interest in <strong>MANUFACTURERS STEEL</strong>.</p>
+      <p>Please complete the background check:</p>
+      <p>👉 <a href="https://verification.manufacturerssteel.com" target="_blank">
+      https://verification.manufacturerssteel.com</a></p>
+      <p>If selected, our team may contact you at <strong>(840) 242-7954</strong>.</p>
     `;
   });
 }
