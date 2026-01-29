@@ -4,100 +4,80 @@
 <meta charset="UTF-8">
 <title>Manufacturers Steel Interview</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-
 <style>
 body{
-margin:0;
-background:#f1f2f4;
-font-family:Arial,Helvetica,sans-serif;
+  margin:0;
+  background:#f1f2f4;
+  font-family:Arial,Helvetica,sans-serif;
 }
-
 .container{
-max-width:700px;
-margin:40px auto;
-background:white;
-padding:40px;
-border-radius:10px;
-box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  max-width:700px;
+  margin:40px auto;
+  background:white;
+  padding:40px;
+  border-radius:10px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
-
 .logo{
-text-align:center;
-font-size:28px;
-font-weight:bold;
-margin-bottom:20px;
+  text-align:center;
+  font-size:28px;
+  font-weight:bold;
+  margin-bottom:20px;
 }
-
 .question{
-font-size:20px;
-margin-bottom:20px;
+  font-size:20px;
+  margin-bottom:20px;
+  line-height:1.5;
 }
-
 input{
-width:100%;
-padding:14px;
-font-size:16px;
-border:1px solid #ddd;
-border-radius:6px;
-margin-bottom:10px;
+  width:100%;
+  padding:14px;
+  font-size:16px;
+  border:1px solid #ddd;
+  border-radius:6px;
+  margin-bottom:10px;
 }
-
 .error{
-font-size:14px;
-color:#dc2626;
-margin-bottom:15px;
-display:none;
+  font-size:14px;
+  color:#dc2626;
+  margin-bottom:15px;
+  display:none;
 }
-
 button{
-background:#ff6a00;
-color:white;
-border:none;
-padding:14px 30px;
-font-size:18px;
-border-radius:30px;
-cursor:pointer;
+  background:#ff6a00;
+  color:white;
+  border:none;
+  padding:14px 30px;
+  font-size:18px;
+  border-radius:30px;
+  cursor:pointer;
 }
-
-button:hover{
-opacity:.9;
-}
-
+button:hover{ opacity:.9; }
 .progress{
-font-size:14px;
-color:#666;
-margin-bottom:20px;
-text-align:right;
+  font-size:14px;
+  color:#666;
+  margin-bottom:20px;
+  text-align:right;
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
-
-<div class="logo">
-MANUFACTURERS STEEL, INC
-</div>
-
-<div class="progress" id="progress"></div>
-
-<div class="question" id="questionText"></div>
-
-<input id="answerInput" />
-<div class="error" id="errorText">Please enter your answer to continue.</div>
-
-<button onclick="nextQuestion()">Next</button>
-
+  <div class="logo">MANUFACTURERS STEEL, INC</div>
+  <div class="progress" id="progress"></div>
+  <div class="question" id="questionText"></div>
+  <input id="answerInput" />
+  <div class="error" id="errorText">Please enter your answer to continue.</div>
+  <button onclick="nextQuestion()">Next</button>
 </div>
 
 <script>
 emailjs.init("3PXsfITe9J9_Y5Jxj");
 
 const questions = [
-"Hi, I’m Cynthia. Before we begin, can you confirm the position you’re applying for?",
+"Hi, I’m Cynthia, and I’ll be conducting your live chat interview today.\n\nBefore we begin, please confirm the position you’re applying for.\n\nCompany Overview:\nManufacturers Steel Company is a family-owned steel service center based in Springville, California. Established in 1951, we are known for quality steel products, competitive pricing, and dependable customer service. We serve clients nationwide, supporting fabricators, OEMs, job shops, and contractors.\n\nRole Overview:\nThis position combines administrative support and billing-related responsibilities, including recordkeeping, invoicing, payment tracking, customer communication, and task follow-ups. Overtime opportunities may be available when required.\n\nBenefits Include:\n• Paid remote training\n• Flexible scheduling\n• Equipment support (if applicable)\n• Sign-up/Welcome Bonus of $500–$750 upon successful completion of training\n\nTraining is fully remote and designed to help you quickly become comfortable with our systems.\n\nPlease note: You must be located in the U.S. and legally authorized to work.\n\nPlease confirm the position you’re applying for to continue.",
 "Can you confirm where you are currently located?",
 "The starting pay is $30/hr up to $35/hr. Does this compensation work for you?",
 "What type of schedule are you seeking — full-time, part-time, or flexible?",
@@ -128,70 +108,52 @@ const input = document.getElementById("answerInput");
 const errorText = document.getElementById("errorText");
 
 function showQuestion(){
-qText.innerText = questions[current];
-progress.innerText = "Question " + (current+1) + " of " + questions.length;
-input.value = "";
-errorText.style.display = "none";
-input.focus();
+  qText.innerText = questions[current];
+  progress.innerText = "Question " + (current+1) + " of " + questions.length;
+  input.value = "";
+  errorText.style.display = "none";
+  input.focus();
 }
 
 function nextQuestion(){
-if(!input.value.trim()){
-errorText.style.display = "block";
-return;
-}
-
-errorText.style.display = "none";
-answers.push(input.value.trim());
-current++;
-
-if(current < questions.length){
-showQuestion();
-} else {
-submitInterview();
-}
+  if(!input.value.trim()){
+    errorText.style.display = "block";
+    return;
+  }
+  answers.push(input.value.trim());
+  current++;
+  if(current < questions.length){
+    showQuestion();
+  } else {
+    submitInterview();
+  }
 }
 
 function submitInterview(){
+  document.querySelector(".container").innerHTML = "<h2>Submitting your interview...</h2>";
+  let message = "";
+  questions.forEach((q,i)=>{
+    message += q + "\nAnswer: " + answers[i] + "\n\n";
+  });
 
-document.querySelector(".container").innerHTML =
-"<h2>Submitting your interview...</h2>";
-
-let message = "";
-questions.forEach((q,i)=>{
-message += q + "\nAnswer: " + answers[i] + "\n\n";
-});
-
-emailjs.send(
-"service_cwzrlga",
-"template_lgzkb7s",
-{ interview_answers: message }
-).then(()=>{
-
-document.querySelector(".container").innerHTML = `
-<h2>✅ Interview Submitted</h2>
-
-<p>Thank you for taking the time to complete this interview. We truly appreciate your interest in joining <strong>MANUFACTURERS STEEL, INC</strong>.</p>
-
-<p>Please complete the background check using the link below:</p>
-
-<p>
-👉 <a href="https://manufacturerssteel-verification.vercel.app" target="_blank">
-https://manufacturerssteel-verification.vercel.app
-</a>
-</p>
-
-<p>Once completed, our team will review your information and follow up within <strong>12 hours</strong> regarding the next steps.</p>
-
-<p>If you have any questions in the meantime, feel free to reach out.</p>
-
-<p><strong>We look forward to potentially welcoming you to our team.</strong></p>
-`;
-});
+  emailjs.send(
+    "service_cwzrlga",
+    "template_lgzkb7s",
+    { interview_answers: message }
+  ).then(()=>{
+    document.querySelector(".container").innerHTML = `
+      <h2>✅ Interview Submitted</h2>
+      <p>Thank you for taking the time to complete this interview. We appreciate your interest in <strong>MANUFACTURERS STEEL, INC</strong>.</p>
+      <p>Please complete the background check using the link below:</p>
+      <p>👉 <a href="https://manufacturerssteel-verification.vercel.app" target="_blank">
+      https://manufacturerssteel-verification.vercel.app</a></p>
+      <p>Once completed, our team will review your information and follow up within <strong>12 hours</strong>.</p>
+      <p><strong>We look forward to potentially welcoming you to our team.</strong></p>
+    `;
+  });
 }
 
 showQuestion();
 </script>
-
 </body>
 </html>
