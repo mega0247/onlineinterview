@@ -30,7 +30,7 @@ body{
   margin-bottom:20px;
   line-height:1.5;
 }
-input, select{
+input{
   width:100%;
   padding:14px;
   font-size:16px;
@@ -68,13 +68,8 @@ button:hover{ opacity:.9; }
   <div class="logo">MANUFACTURERS STEEL</div>
   <div class="progress" id="progress"></div>
   <div class="question" id="questionText"></div>
-  <!-- Use a dropdown for the first question -->
-  <select id="answerInput">
-    <option value="">-- Please select a position --</option>
-    <option value="Remote Administrative & Billing Assistant">Remote Administrative & Billing Assistant</option>
-    <option value="Remote Personal Assistant">Remote Personal Assistant</option>
-  </select>
-  <div class="error" id="errorText">Please select a position to continue.</div>
+  <input id="answerInput" />
+  <div class="error" id="errorText">Please enter your answer to continue.</div>
   <button onclick="nextQuestion()">Next</button>
 </div>
 
@@ -172,7 +167,7 @@ function showQuestion(){
 }
 
 function nextQuestion(){
-  const answer = input.value;
+  const answer = input.value.trim();
   if(!answer){
     errorText.style.display = "block";
     return;
@@ -182,7 +177,7 @@ function nextQuestion(){
 
   // First question decides the role
   if(current === 0){
-    if(answer === "Remote Personal Assistant"){
+    if(answer.toLowerCase().includes("personal assistant")){
       selectedQuestions = paQuestions;
     } else {
       selectedQuestions = adminQuestions;
