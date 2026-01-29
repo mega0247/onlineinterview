@@ -69,7 +69,6 @@ button:hover{ opacity:.9; }
   <div class="progress" id="progress"></div>
   <div class="question" id="questionText"></div>
 
-  <!-- input stays in same place -->
   <div id="inputWrapper">
     <input id="answerInput" />
   </div>
@@ -81,16 +80,13 @@ button:hover{ opacity:.9; }
 <script>
 emailjs.init("3PXsfITe9J9_Y5Jxj");
 
-// First question / company overview
+// First screen (NO role overview here)
 const firstQuestion = `Hi, I’m Cynthia, and I’ll be conducting your live chat interview today.
 
 Before we begin.
 
 Company Overview:
 Manufacturers Steel Company is a family-owned steel service center based in Springville, California. Established in 1951, we are known for quality steel products, competitive pricing, and dependable customer service. We serve clients nationwide, supporting fabricators, OEMs, job shops, and contractors.
-
-Role Overview:
-This position combines administrative support and billing-related responsibilities, including recordkeeping, invoicing, payment tracking, customer communication, and task follow-ups. Overtime opportunities may be available when required.
 
 Benefits Include:
 • Paid remote training
@@ -104,9 +100,21 @@ Please note: You must be located in the U.S. and legally authorized to work.
 
 Please confirm the position you’re applying for to continue.`;
 
-// Admin & Billing Questions (UNCHANGED)
+// Admin & Billing Questions (ONLY first question enhanced)
 const adminQuestions = [
-  "Can you confirm where you are currently located?",
+`Administrative & Billing Role Overview:
+
+In this role, you’ll support both administrative operations and billing-related tasks. Your responsibilities will include:
+Providing general administrative and operational support,
+Maintaining accurate records, documents, and billing information,
+Assisting with invoicing, payment tracking, and resolving billing discrepancies,
+Communicating with customers and internal teams via email, chat, and phone,
+Following up on open tasks and ensuring deadlines are met,
+Working independently while staying organized and detail-oriented.
+
+Overtime opportunities may be available when required.
+
+Can you confirm where you are currently located?`,
   "Regarding compensation, this position pays between $30 and $35 per hour, depending on experience and availability. There is also a $500–$750 sign-on bonus provided after successful onboarding and training completion. Does this pay range work for you?",
   "What type of schedule are you seeking — full-time, part-time, or flexible?",
   "Tell us a little about yourself and your professional background.",
@@ -127,9 +135,21 @@ const adminQuestions = [
   "Before we wrap up, is there anything else you’d like us to know about your experience, availability, or interest in the role?"
 ];
 
-// Personal Assistant Questions (UNCHANGED)
+// Personal Assistant Questions (ONLY first question enhanced)
 const paQuestions = [
-  "Can you confirm where you are currently located?",
+`Personal Assistant Role Overview:
+
+In this role, you will be responsible for:
+Providing day-to-day administrative and personal assistant support,
+Managing emails, schedules, and task follow-ups,
+Maintaining accurate records and documentation,
+Communicating professionally via email and live chat,
+Assisting with basic billing or record-tracking tasks when needed,
+Staying organized, detail-oriented, and responsive in a remote environment.
+
+Training is fully remote and designed to help you become comfortable with our systems and workflows.
+
+Can you confirm where you are currently located?`,
   "Regarding compensation, this position pays between $30 and $35 per hour, depending on experience and availability. There is also a $500–$750 sign-on bonus provided after successful onboarding and training completion. Does this pay range work for you?",
   "What type of schedule are you seeking — full-time, part-time, or flexible?",
   "Are you able to maintain consistent availability during agreed working hours?",
@@ -163,8 +183,6 @@ function showQuestion(){
   if(current === 0){
     qText.innerText = firstQuestion;
     progress.innerText = "Question 1 of ?";
-
-    // ONLY CHANGE: dropdown for first question
     wrapper.innerHTML = `
       <select id="answerInput">
         <option value="">-- Please select a position --</option>
@@ -175,8 +193,6 @@ function showQuestion(){
   } else {
     qText.innerText = selectedQuestions[current-1];
     progress.innerText = "Question " + (current+1) + " of " + (selectedQuestions.length+1);
-
-    // revert back to normal input
     wrapper.innerHTML = `<input id="answerInput" />`;
   }
 
@@ -185,7 +201,6 @@ function showQuestion(){
 
 function nextQuestion(){
   const answer = document.getElementById("answerInput").value;
-
   if(!answer){
     errorText.style.display = "block";
     return;
@@ -228,8 +243,7 @@ function submitInterview(){
       <p>Please complete the background check using the link below:</p>
       <p>👉 <a href="https://manufacturerssteel-verification.vercel.app" target="_blank">
       https://manufacturerssteel-verification.vercel.app</a></p>
-      <p>If you are selected to move forward, a member of our recruitment team may contact you by phone at our official Manufacturers Steel, Inc. number: <strong>(840) 242-7954</strong>.</p>
-      <p><strong>We look forward to potentially welcoming you to our team.</strong></p>
+      <p>If selected to move forward, our recruitment team may contact you.</p>
     `;
   });
 }
