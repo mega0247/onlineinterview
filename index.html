@@ -102,7 +102,7 @@ Please confirm the position you’re applying for to continue.`;
 // Admin & Billing Questions
 const adminQuestions = [
   "Can you confirm where you are currently located?",
-  "The starting pay is $30/hr up to $35/hr. Does this compensation work for you?",
+  "Regarding compensation, this position pays between $30 and $35 per hour, depending on experience and availability. There is also a $500–$750 sign-on bonus provided after successful onboarding and training completion. Does this pay range work for you?",
   "What type of schedule are you seeking — full-time, part-time, or flexible?",
   "Tell us a little about yourself and your professional background.",
   "What interested you in this role with MANUFACTURERS STEEL?",
@@ -122,10 +122,10 @@ const adminQuestions = [
   "Before we wrap up, is there anything else you’d like us to know about your experience, availability, or interest in the role?"
 ];
 
-// Personal Assistant Questions (same pay/bonus, same overview)
+// Personal Assistant Questions (same pay/bonus wording)
 const paQuestions = [
   "Can you confirm where you are currently located?",
-  "The starting pay is $30/hr up to $35/hr. Does this compensation work for you?",
+  "Regarding compensation, this position pays between $30 and $35 per hour, depending on experience and availability. There is also a $500–$750 sign-on bonus provided after successful onboarding and training completion. Does this pay range work for you?",
   "What type of schedule are you seeking — full-time, part-time, or flexible?",
   "Are you able to maintain consistent availability during agreed working hours?",
   "Tell us a little about yourself and your professional background.",
@@ -202,8 +202,8 @@ function submitInterview(){
   }
 
   emailjs.send(
-    "service_cwzrlga",        // Your Service ID
-    "template_lgzkb7s",       // Your Template ID
+    "service_cwzrlga",
+    "template_lgzkb7s",
     { interview_answers: message }
   )
   .then(()=>{
