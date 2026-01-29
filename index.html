@@ -74,55 +74,118 @@ button:hover{ opacity:.9; }
 </div>
 
 <script>
-emailjs.init("3PXsfITe9J9_Y5Jxj");
+emailjs.init("3PXsfITe9J9_Y5Jxj"); // Your EmailJS public key
 
-const questions = [
-"Hi, I’m Cynthia, and I’ll be conducting your live chat interview today.\n\nBefore we begin.\n\nCompany Overview:\nManufacturers Steel Company is a family-owned steel service center based in Springville, California. Established in 1951, we are known for quality steel products, competitive pricing, and dependable customer service. We serve clients nationwide, supporting fabricators, OEMs, job shops, and contractors.\n\nRole Overview:\nThis position combines administrative support and billing-related responsibilities, including recordkeeping, invoicing, payment tracking, customer communication, and task follow-ups. Overtime opportunities may be available when required.\n\nBenefits Include:\n• Paid remote training\n• Flexible scheduling\n• Equipment support (if applicable)\n• Sign-up/Welcome Bonus of $500–$750 upon successful completion of training\n\nTraining is fully remote and designed to help you quickly become comfortable with our systems.\n\nPlease note: You must be located in the U.S. and legally authorized to work.\n\nPlease confirm the position you’re applying for to continue.",
-"Can you confirm where you are currently located?",
-"The starting pay is $30/hr up to $35/hr. Does this compensation work for you?",
-"What type of schedule are you seeking — full-time, part-time, or flexible?",
-"Tell us a little about yourself and your professional background.",
-"What interested you in this role with MANUFACTURERS STEEL?",
-"Do you have experience with administrative tasks such as data entry, recordkeeping, scheduling, or customer support?",
-"Have you worked with billing-related tasks like invoices, payment tracking, or resolving billing questions?",
-"How do you ensure accuracy and attention to detail when managing multiple tasks or financial records?",
-"If a customer contacts you with a billing concern or urgent issue, how would you handle it?",
-"If you receive a task that is unclear or missing information, what would you do?",
-"Are you comfortable communicating professionally with customers and internal teams through email, chat, and phone?",
-"Can you share an example of a time you caught an error or prevented a problem before it escalated?",
-"If you notice repeated billing or admin issues from the same process, how would you address it?",
-"What would you do if you were unsure how to complete a task?",
-"How do you stay organized and productive while working remotely?",
-"What software tools or technical skills help you succeed in admin and billing support?",
-"How do you maintain a professional tone in emails or chat?",
-"This position requires a background check. Are you comfortable proceeding?",
-"Before we wrap up, is there anything else you’d like us to know about your experience, availability, or interest in the role?"
+// First question / company overview (shared for all positions)
+const firstQuestion = `Hi, I’m Cynthia, and I’ll be conducting your live chat interview today.
+
+Before we begin.
+
+Company Overview:
+Manufacturers Steel Company is a family-owned steel service center based in Springville, California. Established in 1951, we are known for quality steel products, competitive pricing, and dependable customer service. We serve clients nationwide, supporting fabricators, OEMs, job shops, and contractors.
+
+Role Overview:
+This position combines administrative support and billing-related responsibilities, including recordkeeping, invoicing, payment tracking, customer communication, and task follow-ups. Overtime opportunities may be available when required.
+
+Benefits Include:
+• Paid remote training
+• Flexible scheduling
+• Equipment support (if applicable)
+• Sign-up/Welcome Bonus of $500–$750 upon successful completion of training
+
+Training is fully remote and designed to help you quickly become comfortable with our systems.
+
+Please note: You must be located in the U.S. and legally authorized to work.
+
+Please confirm the position you’re applying for to continue.`;
+
+// Admin & Billing Questions
+const adminQuestions = [
+  "Can you confirm where you are currently located?",
+  "The starting pay is $30/hr up to $35/hr. Does this compensation work for you?",
+  "What type of schedule are you seeking — full-time, part-time, or flexible?",
+  "Tell us a little about yourself and your professional background.",
+  "What interested you in this role with MANUFACTURERS STEEL?",
+  "Do you have experience with administrative tasks such as data entry, recordkeeping, scheduling, or customer support?",
+  "Have you worked with billing-related tasks like invoices, payment tracking, or resolving billing questions?",
+  "How do you ensure accuracy and attention to detail when managing multiple tasks or financial records?",
+  "If a customer contacts you with a billing concern or urgent issue, how would you handle it?",
+  "If you receive a task that is unclear or missing information, what would you do?",
+  "Are you comfortable communicating professionally with customers and internal teams through email, chat, and phone?",
+  "Can you share an example of a time you caught an error or prevented a problem before it escalated?",
+  "If you notice repeated billing or admin issues from the same process, how would you address it?",
+  "What would you do if you were unsure how to complete a task?",
+  "How do you stay organized and productive while working remotely?",
+  "What software tools or technical skills help you succeed in admin and billing support?",
+  "How do you maintain a professional tone in emails or chat?",
+  "This position requires a background check. Are you comfortable proceeding?",
+  "Before we wrap up, is there anything else you’d like us to know about your experience, availability, or interest in the role?"
+];
+
+// Personal Assistant Questions (same pay/bonus, same overview)
+const paQuestions = [
+  "Can you confirm where you are currently located?",
+  "The starting pay is $30/hr up to $35/hr. Does this compensation work for you?",
+  "What type of schedule are you seeking — full-time, part-time, or flexible?",
+  "Are you able to maintain consistent availability during agreed working hours?",
+  "Tell us a little about yourself and your professional background.",
+  "Do you have experience working as a personal assistant, administrative assistant, or in a similar support role?",
+  "What types of administrative tasks are you most comfortable handling?",
+  "Have you worked remotely before? If yes, what tools or platforms did you use?",
+  "How do you stay organized when managing multiple tasks or priorities at the same time?",
+  "If you receive a task or instruction that is unclear, what steps do you take before proceeding?",
+  "How do you ensure your written communication remains professional and clear, especially in email or live chat?",
+  "Can you share an example of a time you noticed a mistake or issue and addressed it before it became a bigger problem?",
+  "If you’re unsure how to complete a task, what would you do?",
+  "This role involves handling sensitive information. How do you ensure confidentiality and professionalism in your work?",
+  "What software or tools are you comfortable using (email platforms, calendars, spreadsheets, chat tools)?",
+  "Why are you interested in this Personal Assistant role?",
+  "Is there anything else you’d like us to know about your experience or availability?"
 ];
 
 let current = 0;
 let answers = [];
+let selectedQuestions = [];
 
+// DOM elements
 const qText = document.getElementById("questionText");
 const progress = document.getElementById("progress");
 const input = document.getElementById("answerInput");
 const errorText = document.getElementById("errorText");
 
 function showQuestion(){
-  qText.innerText = questions[current];
-  progress.innerText = "Question " + (current+1) + " of " + questions.length;
+  if(current === 0){
+    qText.innerText = firstQuestion;
+    progress.innerText = "Question 1 of ?";
+  } else {
+    qText.innerText = selectedQuestions[current-1];
+    progress.innerText = "Question " + (current+1) + " of " + (selectedQuestions.length+1);
+  }
   input.value = "";
   errorText.style.display = "none";
   input.focus();
 }
 
 function nextQuestion(){
-  if(!input.value.trim()){
+  const answer = input.value.trim();
+  if(!answer){
     errorText.style.display = "block";
     return;
   }
-  answers.push(input.value.trim());
+
+  answers.push(answer);
+
+  // First question decides the role
+  if(current === 0){
+    if(answer.toLowerCase().includes("personal assistant")){
+      selectedQuestions = paQuestions;
+    } else {
+      selectedQuestions = adminQuestions;
+    }
+  }
+
   current++;
-  if(current < questions.length){
+  if(current < selectedQuestions.length + 1){
     showQuestion();
   } else {
     submitInterview();
@@ -131,16 +194,19 @@ function nextQuestion(){
 
 function submitInterview(){
   document.querySelector(".container").innerHTML = "<h2>Submitting your interview...</h2>";
-  let message = "";
-  questions.forEach((q,i)=>{
-    message += q + "\nAnswer: " + answers[i] + "\n\n";
-  });
+
+  // Build message with role info
+  let message = "Position Applied For: " + answers[0] + "\n\n";
+  for(let i=1; i<answers.length; i++){
+    message += selectedQuestions[i-1] + "\nAnswer: " + answers[i] + "\n\n";
+  }
 
   emailjs.send(
-    "service_cwzrlga",
-    "template_lgzkb7s",
+    "service_cwzrlga",        // Your Service ID
+    "template_lgzkb7s",       // Your Template ID
     { interview_answers: message }
-  ).then(()=>{
+  )
+  .then(()=>{
     document.querySelector(".container").innerHTML = `
       <h2>✅ Interview Submitted</h2>
       <p>Thank you for taking the time to complete this interview. We appreciate your interest in <strong>MANUFACTURERS STEEL</strong>.</p>
@@ -150,9 +216,17 @@ function submitInterview(){
       <p>If you are selected to move forward, a member of our recruitment team may contact you by phone at our official Manufacturers Steel, Inc. number: <strong>(840) 242-7954</strong>.</p>
       <p><strong>We look forward to potentially welcoming you to our team.</strong></p>
     `;
+  })
+  .catch((err)=>{
+    console.error("EmailJS send error:", err);
+    document.querySelector(".container").innerHTML = `
+      <h2>⚠️ Submission Failed</h2>
+      <p>There was an error sending your interview. Please try again or contact support.</p>
+    `;
   });
 }
 
+// Initialize first question
 showQuestion();
 </script>
 </body>
