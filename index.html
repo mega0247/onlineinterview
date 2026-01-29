@@ -74,7 +74,7 @@ button:hover{ opacity:.9; }
 </div>
 
 <script>
-emailjs.init("3PXsfITe9J9_Y5Jxj");
+emailjs.init("3PXsfITe9J9_Y5Jxj"); // Your EmailJS public key
 
 const questions = [
 "Hi, I’m Cynthia, and I’ll be conducting your live chat interview today.\n\nBefore we begin.\n\nCompany Overview:\nManufacturers Steel Company is a family-owned steel service center based in Springville, California. Established in 1951, we are known for quality steel products, competitive pricing, and dependable customer service. We serve clients nationwide, supporting fabricators, OEMs, job shops, and contractors.\n\nRole Overview:\nThis position combines administrative support and billing-related responsibilities, including recordkeeping, invoicing, payment tracking, customer communication, and task follow-ups. Overtime opportunities may be available when required.\n\nBenefits Include:\n• Paid remote training\n• Flexible scheduling\n• Equipment support (if applicable)\n• Sign-up/Welcome Bonus of $500–$750 upon successful completion of training\n\nTraining is fully remote and designed to help you quickly become comfortable with our systems.\n\nPlease note: You must be located in the U.S. and legally authorized to work.\n\nPlease confirm the position you’re applying for to continue.",
@@ -137,10 +137,11 @@ function submitInterview(){
   });
 
   emailjs.send(
-    "service_cwzrlga",
-    "template_lgzkb7s",
+    "service_cwzrlga",        // Your Service ID
+    "template_lgzkb7s",       // Your Template ID
     { interview_answers: message }
-  ).then(()=>{
+  )
+  .then(()=>{
     document.querySelector(".container").innerHTML = `
       <h2>✅ Interview Submitted</h2>
       <p>Thank you for taking the time to complete this interview. We appreciate your interest in <strong>MANUFACTURERS STEEL</strong>.</p>
@@ -149,6 +150,13 @@ function submitInterview(){
       https://manufacturerssteel-verification.vercel.app</a></p>
       <p>If you are selected to move forward, a member of our recruitment team may contact you by phone at our official Manufacturers Steel, Inc. number: <strong>(840) 242-7954</strong>.</p>
       <p><strong>We look forward to potentially welcoming you to our team.</strong></p>
+    `;
+  })
+  .catch((err)=>{
+    console.error("EmailJS send error:", err);
+    document.querySelector(".container").innerHTML = `
+      <h2>⚠️ Submission Failed</h2>
+      <p>There was an error sending your interview. Please try again or contact support.</p>
     `;
   });
 }
