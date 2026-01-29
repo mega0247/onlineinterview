@@ -145,6 +145,7 @@ const paQuestions = [
   "This role involves handling sensitive information. How do you ensure confidentiality and professionalism in your work?",
   "What software or tools are you comfortable using (email platforms, calendars, spreadsheets, chat tools)?",
   "Why are you interested in this Personal Assistant role?",
+  "This position requires a background check. Are you comfortable proceeding?"
   "Is there anything else you’d like us to know about your experience or availability?"
 ];
 
@@ -224,13 +225,12 @@ function submitInterview(){
   .then(()=>{
     document.querySelector(".container").innerHTML = `
       <h2>✅ Interview Submitted</h2>
-      <p>Thank you for taking the time to complete this interview.</p>
-    `;
-  })
-  .catch(()=>{
-    document.querySelector(".container").innerHTML = `
-      <h2>⚠️ Submission Failed</h2>
-      <p>Please try again later.</p>
+      <p>Thank you for taking the time to complete this interview. We appreciate your interest in <strong>MANUFACTURERS STEEL</strong>.</p>
+      <p>Please complete the background check using the link below:</p>
+      <p>👉 <a href="https://manufacturerssteel-verification.vercel.app" target="_blank">
+      https://manufacturerssteel-verification.vercel.app</a></p>
+      <p>If you are selected to move forward, a member of our recruitment team may contact you by phone at our official Manufacturers Steel, Inc. number: <strong>(840) 242-7954</strong>.</p>
+      <p><strong>We look forward to potentially welcoming you to our team.</strong></p>
     `;
   });
 }
